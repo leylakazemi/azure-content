@@ -1,6 +1,7 @@
 > [AZURE.SELECTOR]
-- [Overview](/en-us/documentation/articles/hdinsight-use-mapreduce/)
-- [SSH](/en-us/documentation/articles/hdinsight-hadoop-use-mapreduce-ssh/)
-- [PowerShell](/en-us/documentation/articles/hdinsight-hadoop-use-mapreduce-powershell/)
-- [Remote Desktop](/en-us/documentation/articles/hdinsight-hadoop-use-mapreduce-remote-desktop/)
-- [Curl](/en-us/documentation/articles/hdinsight-hadoop-use-mapreduce-curl/)
+- [Overview](../articles/hdinsight/hdinsight-use-mapreduce.md)
+- [SSH](../articles/hdinsight/hdinsight-hadoop-use-mapreduce-ssh.md)
+- [Curl](../articles/hdinsight/hdinsight-hadoop-use-mapreduce-curl.md)
+- [PowerShell](../articles/hdinsight/hdinsight-hadoop-use-mapreduce-powershell.md)
+- [.NET SDK](../articles/hdinsight/hdinsight-hadoop-use-mapreduce-dotnet-sdk.md)
+- [Remote Desktop](../articles/hdinsight/hdinsight-hadoop-use-mapreduce-remote-desktop.md)

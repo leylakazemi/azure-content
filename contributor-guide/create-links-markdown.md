@@ -3,54 +3,117 @@
 
 <tags ms.service="contributor-guide" ms.devlang="" ms.topic="article" ms.tgt_pltfrm="" ms.workload="" ms.date="02/03/2015" ms.author="tysonn" />
 
-#Linking guidance for Azure technical content
-##Guidelines for technical articles on azure.microsoft.com
+# Linking guidance for Azure technical content
 
-| Link scenario | Guidance  |
-|---------------|-----------|
-|Linking from an ACOM article to another ACOM article|Use relative links. Do not include the language locale in your relative links ("/en-us/").|
-|​Linking to an MSDN library topic, a TechNet library topic, or KB article|​Use the actual link to the article or topic, but remove the language locale ("/en-us/") from the link. Removing the language locale from the link allows the correct translated content to be returned based on the language locale set on the user's operating system.|
-|Linking from an ACOM article to any other web page|Use the direct link|
+### Links from one ACOM article to another
 
-###Markdown syntax for ACOM relative links
+To create an inline link from an ACOM technical article to another ACOM technical article, use the following link syntax:  
 
-To create an inline link to a page in the same directory as the current page (this is the case for all our ACOM technical articles), use the two-dot notation. Include the markdown file name extension:
+- An article in a service directory links to another article in the same service directory:
 
-    [link text](../<article name>)
-    [Create a Media Services account!](../media-services-create-account)
+  `[link text](article-name.md)`
+
+- An article links from a service subdirectory to an article in the root directory:
+
+  `[link text](../article-name.md)`
+
+- An article in the root directory links to an article in a service subdirectory: 
+
+  `[link text](./service-directory/article-name.md)`
+
+- An article in a service subdirectory links to an article in another service subdirectory:
+
+  `[link text](../service-directory/article-name.md)`
  
-To link to a page in a different directory (to link from a tech doc to a feature page, for example), you need to use the ../ syntax to move the correct number of steps up the URL path. No file name extension is needed. For example, to link from an article to the virtual-machines service page, you would use this notation:
 
-    [link text](../../services/virtual-machines/)
- 
-To link to the .NET samples page from an article:
+## Links to anchors
 
-    [link text](../../../develop/net/samples/)
+You do not have to create anchors - they are automatically generated at publishing time for all H2 headings. The only thing you have to do is create links to the H2 sections.
 
-To test your links, push your page to your fork, and view it in the rendered view. The cross links on the GitHub version of the page should work as long as the targets of the URLs are present in your fork.
+- To link to a heading within the same article:
 
-Our [markdown template for technical articles](../markdown templates/markdown-template-for-new-articles.md/) shows an alternate way to create crosslinks in markdown so all the crosslinks are coded together at the end of the article, even while they display inline. 
+  `[link](#the-text-of-the-H2-section-separated-by-hyphens)`  
+  `[Create cache](#create-cache)`
 
-##Guidelines for the Azure library on MSDN
+- To link to an anchor in another article in the same subdirectory:
 
-| Link scenario | Guidance  |
-|---------------|-----------|
-|Linking to another topic in the same database|​Use the standard, GUID-based links in DxStudio|
-|Linking to a topic in a different database|Create an external link in the link creation UI, and use a direct link that does not contain the language locale|
-|Linking to an ACOM article|Use a direct link, but strip the language locale out of the link.|
-|Linking to any other page on the web​|Use a direct link.|
+  `[link text](article-name.md#anchor-name)`
+  `[Configure your profile](media-services-create-account.md#configure-your-profile)`
+
+- To link to an anchor in another service subdirectory:
+
+  `[link text](../service-directory/article-name.md#anchor-name)`
+  `[Configure your profile](../service-directory/media-services-create-account.md#configure-your-profile)`
+
+One way to automate the process of creating links in your articles to auto-generated anchor links is [MarkdownAnchorLinkGenerator - a tool to generate anchor links for ACOM in the proper format](https://github.com/Azure/Azure-CSI-Content-Tools/tree/master/Tools/ACOMMarkdownAnchorLinkGenerator).
+
+## Links from includes
+
+Since include files are located in another directory, you will need to use longer relative paths as shown below. To link to an article from an include file, use this format:
+
+    [link text](../articles/service-folder/article-name.md)
+    
+Learn more about how to use an include file in the [Custom markdown extensions guidelines](custom-markdown-extensions.md#includes).
+
+## Links in selectors
+
+If you have selectors that are embedded in an include, you would use this sort of linking: 
+
+    > [AZURE.SELECTOR-LIST (Dropdown1 | Dropdown2 )]
+    - [(Text1 | Example1 )](../articles/service-folder/article-name1.md)
+    - [(Text1 | Example2 )](../articles/service-folder/article-name2.md)
+    - [(Text2 | Example3 )](../articles/service-folder/article-name3.md)
+    - [(Text2 | Example4 )](../articles/service-folder/article-name4.md)
 
 
-##Remember the Azure library chrome!
-If you want to link to an Azure library topic that lives under [this node](https://msdn.microsoft.com/library/azure), remember to specify the Azure chrome in the link (/azure/). The Azure chrome shares the ACOM navigation options and displays only the Azure content of the MSDN library. A properly scoped link looks like this:
+## Reference-style links
 
-    http://msdn.microsoft.com/library/azure/dd163896.aspx
+You can use reference style links to make your source content easier to read. The reference style links replace the inline link syntax with simplified syntax that allows you to move the long URLs to the end of the article. Here's Daring Fireball's example:
 
-Otherwise, the page will be rendered in the standard MSDN view, with the entire MSDN tree displayed.
+Inline text:
 
-##FWLinks
+    I get 10 times more traffic from [Google][1] than from [Yahoo][2] or [MSN][3].
 
-Avoid FWLinks (our redirection system). They should be used only as a last resort when you need to create a link for a page whose URL you don't yet know. They are almost never needed for ACOM articles or MSDN library articles. For ACOM, you define the file name, so you can know what it will be ahead of time. For a library topic that is not yet published, you can create a link that uses the topic GUID so that you don't have to use an FWLink. 
+Link references at the end of the article:
+
+    <!--Reference links in article-->
+    [1]: http://google.com/
+    [2]: http://search.yahoo.com/  
+    [3]: http://search.msn.com/
+
+Make sure you include the space after the colon, before the link. When you link to other technical articles, if you forget to include the space, the link will be broken in the published article. 
+
+## Link to ACOM pages that are not part of the technical documentation set
+
+To link to a page on ACOM (such as a pricing page, SLA page or anything else that is not a documentation article), use an absolute URL, but omit the locale. The goal here is that links work in GitHub and on the rendered site:
+
+    [link text](http://azure.microsoft.com/pricing/details/virtual-machines/)
+
+
+## Link to MSDN or TechNet
+
+When you need to link to MSDN or TechNet, use the full link to the topic, and remove the en-us language locale from the link. 
+
+### Use friendly link text for all links
+
+The words you include in a link should be friendly - in other words, they should be normal English words or the title of the page you are linking to. Do not use "click here". It's bad for SEO and doesn't adequately describe the target.
+
+**Correct:**
+
+- `For more information, see the [contributor guide index](https://github.com/Azure/azure-content/blob/master/contributor-guide/contributor-guide-index.md).`
+
+- `For more details, see the [SET TRANSACTION ISOLATION LEVEL](https://msdn.microsoft.com/library/ms173763.aspx) reference.`
+
+**Incorrect:**
+
+- `For more details, see [https://msdn.microsoft.com/library/ms173763.aspx](https://msdn.microsoft.com/library/ms173763.aspx).`
+
+- `For more information, click [here](https://github.com/Azure/azure-content/blob/master/contributor-guide/contributor-guide-index.md).`
+
+
+## FWLinks
+
+Avoid FWLinks (our redirection system) in azure.microsoft.com content. They should be used only as a last resort when you need to create a link for a page whose URL you don't yet know. They are almost never actually needed. For ACOM, you define the file name, so you can know what it will be ahead of time. For a library topic that is not yet published, you can create a link that uses the topic GUID so that you don't have to use an FWLink.
 
 If you must use an FWLink on a web page, include the P parameter to make it a permanent redirect:
 
@@ -58,13 +121,16 @@ If you must use an FWLink on a web page, include the P parameter to make it a pe
 
 When you paste the target URL into the FWLink tool, remember to remove the locale if your target link is ACOM, or the MSDN or TechNet library.
 
-##Linking from the Help drawer
+## Remember the Azure library chrome!
+If you want to link to an Azure library topic that lives under [this node](https://msdn.microsoft.com/library/azure), remember to specify the Azure chrome in the link (/azure/). The Azure chrome shares the ACOM navigation options and displays only the Azure content of the MSDN library. A properly scoped link looks like this:
 
-See the [Help Drawer content guidance](http://sharepoint/sites/azurecontentguidance/wiki/Pages/Help%20drawer%20content%20guidance.aspx) for linking information specific to the Help Drawer.
+    http://msdn.microsoft.com/library/azure/dd163896.aspx
 
-###Contributors' Guide Links
+Otherwise, the page will be rendered in the standard MSDN view, with the entire MSDN tree displayed.
 
-- [Overview article](./../CONTRIBUTING.md)
+### Contributors' Guide Links
+
+- [Overview article](./../README.md)
 - [Index of guidance articles](./contributor-guide-index.md)
 
 <!--image references-->
